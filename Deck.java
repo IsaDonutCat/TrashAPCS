@@ -33,6 +33,7 @@ public class Deck
         index = (int) (Math.random() * deck.size());
         deck.get(index).flipCard();
         temp = deck.get(index);
+        System.out.println("You have drawn " + temp.getName());
         deck.remove(index);
         return temp;
     }
