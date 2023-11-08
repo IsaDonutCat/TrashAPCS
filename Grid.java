@@ -98,7 +98,7 @@ public class Grid
             answer = input.nextLine();
         }
         while (possError(answer)); //run until valid choice
-
+        input.close();
         return drawCard(Integer.parseInt(answer)-1);
     }
 
