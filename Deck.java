@@ -5,7 +5,7 @@ public class Deck
     String[] suits = {"Hearts", "Diamonds", "Spades", "Clubs"};
     String[] values = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
     Card temp;
-    int index;
+    int index;  //INDEX
     ArrayList<Card> deck; //need to declare outsid for it to be used throughout the class
 
     public Deck () //constructor
