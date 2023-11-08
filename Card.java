@@ -31,7 +31,6 @@ public class Card
             faceUp = false;
         else
             faceUp = true;
-
         return;
     }
 }
