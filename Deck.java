@@ -37,4 +37,9 @@ public class Deck
         deck.remove(index);
         return temp;
     }
+
+    public int cardCtRemain()
+    {
+        return deck.size();
+    }
 }
