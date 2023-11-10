@@ -5,7 +5,11 @@ public class Grid
     Card[][] cardGrid; // 2 rows 5 columns
     public boolean[][] blankSlot;
     int numCards, tempRow, tempCol;
-    ///default constructor class that takes nothing and does nothing already exists and im lazy
+
+    public int getCardCt ()
+    {
+        return numCards;
+    }
     public Grid(int size, Deck dealFrom) //constructor class, possible future recursion
     {   
         if (size <= 5) //create according to size, if five or less its only one row
@@ -162,6 +166,7 @@ public class Grid
         int cardVal = inHand.getNumValue();
         if (cardVal >= numCards)
         {
+            trashStack.add(inHand);
             System.out.println("Trash!");
             return; //the card is trash
         }
@@ -174,6 +179,7 @@ public class Grid
         else if (cardGrid[tempRow][tempCol].getFaceUp())//the player already has this value 
         {
             System.out.println("Trash!");
+            trashStack.add(inHand);
             return; //the card is trash
         }
         else //theres a facedown card in this spot
