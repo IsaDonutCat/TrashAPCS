@@ -84,7 +84,7 @@ public class Grid
         return false;
     }
 
-    public boolean selectCard () //select facedown card in grid 
+    public void selectCard () //select facedown card in grid 
     {
         printGrid();
         System.out.println();
@@ -99,7 +99,8 @@ public class Grid
         }
         while (possError(answer)); //run until valid choice
         input.close();
-        return drawCard(Integer.parseInt(answer)-1);
+        drawCard(Integer.parseInt(answer)-1);
+        return;
     }
 
     public boolean possError (String inChoice)//find any errors with answer
@@ -145,14 +146,15 @@ public class Grid
         return false;
     }
 
-    public boolean drawCard (int index) //draw facedown card from grid
+    public void drawCard (int index) //draw facedown card from grid
     {
         tempRow = index/5;
         tempCol = index%5;
         cardGrid[tempRow][tempCol].flipCard();
         blankSlot[tempRow][tempCol] = true; //now that the card has been "drawn" the slot is blank
         System.out.println("The card is " + cardGrid[tempRow][tempCol].getName());//reveal value
-        return placeCard(cardGrid[tempRow][tempCol]); //place card will be chosen
+        placeCard(cardGrid[tempRow][tempCol]); //place card will be chosen
+        return;
     }
 
     public boolean placeCard (Card inHand)//place card in grid, return false to end turn
@@ -161,22 +163,23 @@ public class Grid
         if (cardVal >= numCards)
         {
             System.out.println("Trash!");
-            return false; //the card is trash
+            return; //the card is trash
         }
         else if (blankSlot[tempRow][tempCol]) //do this first since im too lazy to remove a drawn card from the cardGrid
         {
             cardGrid[tempRow][tempCol] = inHand;
             blankSlot[tempRow][tempCol] = false;
-            return false; //
+            return; //
         }
         else if (cardGrid[tempRow][tempCol].getFaceUp())//the player already has this value 
         {
             System.out.println("Trash!");
-            return false; //the card is trash
+            return; //the card is trash
         }
         else //theres a facedown card in this spot
         {
-            return drawCard(tempRow*5+tempCol);//continyue turn by drawing that card
+            drawCard(tempRow*5+tempCol);//continyue turn by drawing that card
+            return;
         }
     }
 
@@ -190,7 +193,6 @@ public class Grid
                     return false;
             }
         }
-
         return true;
     }
 }
