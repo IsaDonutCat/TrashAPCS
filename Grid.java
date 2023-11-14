@@ -10,7 +10,8 @@ public class Grid
     {
         return numCards;
     }
-    public Grid(int size, Deck dealFrom) //constructor class, possible future recursion
+
+    public Grid(int size) //constructor class, possible future recursion
     {   
         if (size <= 5) //create according to size, if five or less its only one row
         {   
@@ -27,7 +28,7 @@ public class Grid
         {       
             for (int b = 0; b < cardGrid[a].length; b++)  //gets different length per
             {
-                cardGrid[a][b] = dealFrom.deal();
+                cardGrid[a][b] = Trash.freshStack.deal();
                 blankSlot[a][b] = false; //initialize
             }
             System.out.println();
@@ -35,7 +36,7 @@ public class Grid
 
         numCards = size;
     }
-
+    
     public void printGrid() //print out what cards are known and what cards are unknown
     {
         for (int c = 0; c < cardGrid.length; c++) //array.length returns num rows
@@ -161,12 +162,12 @@ public class Grid
         return;
     }
 
-    public boolean placeCard (Card inHand)//place card in grid, return false to end turn
+    public void placeCard (Card inHand)//place card in grid, return false to end turn
     {   
         int cardVal = inHand.getNumValue();
         if (cardVal >= numCards)
         {
-            trashStack.add(inHand);
+            Trash.trashStack.add(inHand);
             System.out.println("Trash!");
             return; //the card is trash
         }
@@ -179,7 +180,7 @@ public class Grid
         else if (cardGrid[tempRow][tempCol].getFaceUp())//the player already has this value 
         {
             System.out.println("Trash!");
-            trashStack.add(inHand);
+            Trash.trashStack.add(inHand);//thank you stack overflow for teaching me how to make this global
             return; //the card is trash
         }
         else //theres a facedown card in this spot
