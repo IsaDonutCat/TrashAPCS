@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Trash //so can be combined with other game
 {
@@ -104,7 +104,7 @@ public class Trash //so can be combined with other game
             System.out.println("The deck is empty.");
 
         ans = input.nextInt();
-
+        String buffClear = input.nextLine();
         while(!(ans == 3 && allowDraw) && !(ans == 2 && allowTrash) && !(ans == 1 && allowGrid)) //could not stuff this into do-while bc different path if repeating
         {
             System.out.println("That option is invalid. Please choose another option. ");

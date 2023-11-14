@@ -59,16 +59,12 @@ public class Grid
 
     public void printLayout() //print layout so user knows wh  
     {
-        int cursor = 0;//for continuous counting
 
         for (int e = 0; e < cardGrid.length; e++) //array.length returns num rows
-        {       
-            cursor++;
-            
+        {
             for (int f = 0; f < cardGrid[e].length; f++) 
             {
-                System.out.print(cursor);
-
+                System.out.print(e*5+f + 1);
                 if (f < cardGrid[e].length - 1)
                     System.out.print("|");
             }
@@ -96,7 +92,7 @@ public class Grid
         printLayout();
         Scanner input = new Scanner(System.in);
         String answer;
-
+        
         do
         {   
             System.out.println("Enter the corresponding number for the card you want to flip over");
@@ -113,6 +109,11 @@ public class Grid
         char[] arrDigits = inChoice.toCharArray();
         int lenChoice = arrDigits.length;
 
+        if (lenChoice == 0)
+        {
+            System.out.println("Please enter a choice");
+            return true;
+        }
         for (int g = 0; g < lenChoice; g++)
         {
             if (!Character.isDigit(arrDigits[g]))

@@ -3,7 +3,7 @@ public class Card
     boolean faceUp;
     int numValue; //numerical value of card (0-12 in computer bc)
     String name;
-
+    
     public Card (int InnumValue, String invalue, String insuit) //constructor class
     {
         name = invalue + " of " + insuit;
