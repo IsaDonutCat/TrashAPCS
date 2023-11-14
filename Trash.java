@@ -3,14 +3,17 @@ import java.util.Scanner;
 public class Trash //so can be combined with other game
 {
     public ArrayList<Card> trashStack;
-    Deck freshStack = new Deck();
+    Deck freshStack;
     Grid player1;
     Grid player2;
     int gameCount = 1; //human counting
     int winner; 
 
     public void trashShort ()//create short game
-    {
+    {   
+        freshStack = new Deck();
+        player1 = new Grid(10, freshStack);
+        player2 = new Grid(10, freshStack);
         winner = game();
         if (winner == -1)
             System.out.println("Draw!");
@@ -22,6 +25,7 @@ public class Trash //so can be combined with other game
 
     public void trashLong (int play1Num, int play2Num) //create long game
     {
+        freshStack = new Deck();
         player1 = new Grid(play1Num, freshStack);
         player2 = new Grid(play2Num, freshStack);
 
