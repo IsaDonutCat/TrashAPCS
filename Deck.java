@@ -19,6 +19,16 @@ public class Deck
         }
     }
 
+    public void resetDeck()
+    {
+        deck.clear();
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 13; j++) //cycle thru the values and j can be used as numValue
+                deck.add(new Card(j, values[j], suits[i]));
+        }
+    }
+
     public Card deal() //deal random card (remain faceDown)
     {
         index = (int) (Math.random() * deck.size());
