@@ -1,9 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Trash //so can be combined with other game
 {
-    public ArrayList<Card> trashStack;
-    Deck freshStack;
+    public static ArrayList<Card> trashStack = new ArrayList<Card>();
+    public static Deck freshStack = new Deck();
     Grid player1;
     Grid player2;
     int gameCount = 1; //human counting
@@ -11,9 +12,10 @@ public class Trash //so can be combined with other game
 
     public void trashShort ()//create short game
     {   
-        freshStack = new Deck();
-        player1 = new Grid(10, freshStack);
-        player2 = new Grid(10, freshStack);
+        freshStack.resetDeck();
+        trashStack.clear();
+        player1 = new Grid(10);
+        player2 = new Grid(10);
         winner = game();
         if (winner == -1)
             System.out.println("Draw!");
@@ -25,9 +27,10 @@ public class Trash //so can be combined with other game
 
     public void trashLong (int play1Num, int play2Num) //create long game
     {
-        freshStack = new Deck();
-        player1 = new Grid(play1Num, freshStack);
-        player2 = new Grid(play2Num, freshStack);
+        freshStack.resetDeck();
+        trashStack.clear();
+        player1 = new Grid(play1Num);
+        player2 = new Grid(play2Num);
 
         if (play1Num == 0)
         {
@@ -42,10 +45,10 @@ public class Trash //so can be combined with other game
         else
         {
             winner = game(); //runs 1 game, return 1 if player 1 wins and return 2 if player 2 wins
+            gameCount++;
             if (winner == 1)
             {
                 System.out.println("Player 1 wins round " + gameCount + "!");
-                gameCount++;
                 trashLong(play1Num-1, play2Num);
             }
             else if (winner == -1)
@@ -56,7 +59,6 @@ public class Trash //so can be combined with other game
             else
             {
                 System.out.println("Player 2 wins round " + gameCount + "!");
-                gameCount++;
                 trashLong(play1Num, play2Num - 1);
             }
             return;
@@ -70,7 +72,7 @@ public class Trash //so can be combined with other game
         boolean allowGrid = false;
         boolean allowTrash = false;
         boolean allowDraw = false;
-        int chosenAns;
+        int ans;
         player.printGrid();
 
         if (player.anyUndrawn())
@@ -86,14 +88,14 @@ public class Trash //so can be combined with other game
         else
         {
             System.out.println("The card on top of the trash is " + trashStack.get(trashStack.size()-1).getName());
-            if (trashStack.get(trashStack.size()-1).getNumValue < player1.getCardCt)
+            if (trashStack.get(trashStack.size()-1).getNumValue() < player1.getCardCt())
             {
                 System.out.println("You can choose this card by entering 2.");
                 allowTrash = true;
             }
         }
         
-        if (freshDeck.cardCtRemain() != 0 )
+        if (freshStack.cardCtRemain() != 0 )
         {
             System.out.println("Enter 3 to draw from the deck.");
             allowDraw = true;
@@ -101,12 +103,12 @@ public class Trash //so can be combined with other game
         else
             System.out.println("The deck is empty.");
 
-        ans = input.nextInteger();
+        ans = input.nextInt();
 
         while(!(ans == 3 && allowDraw) && !(ans == 2 && allowTrash) && !(ans == 1 && allowGrid)) //could not stuff this into do-while bc different path if repeating
         {
-            System.out.println("That option is invalid. Please choose another option. ");\
-            ans = input.nextInteger();
+            System.out.println("That option is invalid. Please choose another option. ");
+            ans = input.nextInt();
         }
 
         String buffClear = input.nextLine();
@@ -120,7 +122,7 @@ public class Trash //so can be combined with other game
         }
         else if (ans == 2)
         {
-            player.placeCard(freshDeck.draw());
+            player.placeCard(freshStack.draw());
         }
         else
         {
@@ -129,20 +131,20 @@ public class Trash //so can be combined with other game
         
     }
 
-    public void game()//game return swinner or -1 if deck runs out and trash latest is not valid
+    public int game()//game return swinner or -1 if deck runs out and trash latest is not valid
     {
         while (true)
         {
-            if (freshDeck.cardCtRemain() == 0 
-            && trashStack.get(trashStack.size()-1).getNumValue >= player1.getCardCt 
+            if (freshStack.cardCtRemain() == 0 
+            && trashStack.get(trashStack.size()-1).getNumValue() >= player1.getCardCt()
             && !player1.anyUndrawn()) //no cards in deck, && can't draw from stack && cant flip from grid
                 return -1;
             turn(player1);
             if (player1.winnerWinner())
                 return 1;
 
-            if (freshDeck.cardCtRemain() == 0 
-            && trashStack.get(trashStack.size()-1).getNumValue >= player2.getCardCt 
+            if (freshStack.cardCtRemain() == 0 
+            && trashStack.get(trashStack.size()-1).getNumValue() >= player2.getCardCt()
             && !player2.anyUndrawn())
                 return -1;
             turn(player2);
