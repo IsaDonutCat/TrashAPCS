@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Trash //so can be combined with other game
@@ -104,14 +103,21 @@ public class Trash //so can be combined with other game
         else
             System.out.println("The deck is empty.");
 
+            String temp;
+        
         do
         {
-            System.out.println("Please enter a number for an option");
+            System.out.print("Please enter a number for an option\n");
+            System.out.print("waiting\n");
+                temp = input.nextLine();
+                System.out.print("finished" + ".");
             try
             {
-                ans = input.nextInt();
+                ans = Integer.parseInt(temp);
             }
-            catch (InputMismatchException e){}
+            catch (NumberFormatException e){
+                
+            }
         }
         while(!(ans == 3 && allowDraw) && !(ans == 2 && allowTrash) && !(ans == 1 && allowGrid));
 
