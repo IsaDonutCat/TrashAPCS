@@ -103,8 +103,6 @@ public class Trash //so can be combined with other game
         }
         else
             System.out.println("The deck is empty.");
-        
-        String buffClear;
 
         do
         {
@@ -114,11 +112,10 @@ public class Trash //so can be combined with other game
                 ans = input.nextInt();
             }
             catch (InputMismatchException e){}
-
-            buffClear = input.next();
         }
         while(!(ans == 3 && allowDraw) && !(ans == 2 && allowTrash) && !(ans == 1 && allowGrid));
 
+        String buffClear = input.next();
         input.close();
         
 

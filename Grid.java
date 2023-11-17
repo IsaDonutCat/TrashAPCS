@@ -88,18 +88,19 @@ public class Grid
 
     public void selectCard () //select facedown card in grid 
     {
+        System.out.println("made it to selectCard");
         printGrid();
         printLayout();
         System.out.println();
-        Scanner input = new Scanner(System.in);
-        int answe = -5;
+        Scanner inputSelect = new Scanner(System.in);
+        int answer = -5;
         
         do
         {
-            System.out.println("Enter the corresponding number for the card you want to flip over");
+            System.out.print("Enter the corresponding number for the card you want to flip over\n");
             try
             {
-                answer = input.nextInt() - 1;
+                answer = inputSelect.nextInt() - 1;
             }
             catch(InputMismatchException e)
             {
@@ -107,7 +108,7 @@ public class Grid
             }
         }
         while (possError(answer)); //run until valid choice
-        input.close();
+        inputSelect.close();
         drawCard(answer);
         return;
     }
