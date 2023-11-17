@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Trash //so can be combined with other game
@@ -72,7 +73,7 @@ public class Trash //so can be combined with other game
         boolean allowGrid = false;
         boolean allowTrash = false;
         boolean allowDraw = false;
-        int ans;
+        int ans = 0;
         player.printGrid();
 
         if (player.anyUndrawn())
@@ -102,25 +103,31 @@ public class Trash //so can be combined with other game
         }
         else
             System.out.println("The deck is empty.");
+        
+        String buffClear;
 
-        ans = input.nextInt();
-        String buffClear = input.nextLine();
-        while(!(ans == 3 && allowDraw) && !(ans == 2 && allowTrash) && !(ans == 1 && allowGrid)) //could not stuff this into do-while bc different path if repeating
+        do
         {
-            System.out.println("That option is invalid. Please choose another option. ");
-            ans = input.nextInt();
+            System.out.println("Please enter a number for an option");
+            try
+            {
+                ans = input.nextInt();
+            }
+            catch (InputMismatchException e){}
+
+            buffClear = input.next();
         }
+        while(!(ans == 3 && allowDraw) && !(ans == 2 && allowTrash) && !(ans == 1 && allowGrid));
 
-        String buffClear = input.nextLine();
         input.close();
+        
 
-
-        if (ans == 2 )
+        if (ans == 2)
         {
             player.placeCard(trashStack.get(trashStack.size()-1));
             trashStack.remove(trashStack.size()-1);
         }
-        else if (ans == 2)
+        else if (ans == 3)
         {
             player.placeCard(freshStack.draw());
         }

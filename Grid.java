@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Grid
@@ -88,62 +89,44 @@ public class Grid
     public void selectCard () //select facedown card in grid 
     {
         printGrid();
-        System.out.println();
         printLayout();
+        System.out.println();
         Scanner input = new Scanner(System.in);
-        String answer;
+        int answe = -5;
         
         do
-        {   
+        {
             System.out.println("Enter the corresponding number for the card you want to flip over");
-            answer = input.nextLine();
+            try
+            {
+                answer = input.nextInt() - 1;
+            }
+            catch(InputMismatchException e)
+            {
+                System.out.println("Please enter a number.");
+            }
         }
         while (possError(answer)); //run until valid choice
         input.close();
-        drawCard(Integer.parseInt(answer)-1);
+        drawCard(answer);
         return;
     }
 
-    public boolean possError (String inChoice)//find any errors with answer
+    public boolean possError (int inChoice)//find any errors with answer
     {
-        char[] arrDigits = inChoice.toCharArray();
-        int lenChoice = arrDigits.length;
-
-        if (lenChoice == 0)
-        {
-            System.out.println("Please enter a choice");
-            return true;
-        }
-        for (int g = 0; g < lenChoice; g++)
-        {
-            if (!Character.isDigit(arrDigits[g]))
-            {
-                System.out.println("Please enter a number");
-                return true;
-            }
-        }
-
-        if (lenChoice > 2)
+        if (inChoice >= numCards || inChoice < 0)
         {
             System.out.println("Please choose a number within the range of your cards");
             return true;
         }
 
-        int ans = Integer.parseInt(inChoice) -1; //okay to parseInt since completely integer
-
-        if (ans >= numCards) //error for not a possible slot
-        {
-            System.out.println("Please choose a number within the range of your cards");
-            return true;
-        }
-
-        if (cardGrid[ans/5][ans%5].getFaceUp()) //error for already existing card
+        if (cardGrid[inChoice/5][inChoice%5].getFaceUp()) //error for already existing card
         {
             System.out.println("You already have a face-up card here!");
             return true;
         }
 
-        if(blankSlot[ans/5][ans%5]) //error for no card to draw
+        if(blankSlot[inChoice/5][inChoice%5]) //error for no card to draw
         {
             System.out.println("There's no card here!");
             return true;
