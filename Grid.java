@@ -1,12 +1,10 @@
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Grid
 {
     Card[][] cardGrid; // 2 rows 5 columns
     public boolean[][] blankSlot;
     int numCards, tempRow, tempCol;
-
     public int getCardCt ()
     {
         return numCards;
@@ -92,7 +90,6 @@ public class Grid
         printGrid();
         printLayout();
         System.out.println();
-        Scanner inputSelect = new Scanner(System.in);
         int answer = -5;
         
         do
@@ -100,7 +97,7 @@ public class Grid
             System.out.print("Enter the corresponding number for the card you want to flip over\n");
             try
             {
-                answer = inputSelect.nextInt() - 1;
+                answer = Trash.inputter.nextInt() - 1;
             }
             catch(InputMismatchException e)
             {
@@ -108,7 +105,6 @@ public class Grid
             }
         }
         while (possError(answer)); //run until valid choice
-        inputSelect.close();
         drawCard(answer);
         return;
     }

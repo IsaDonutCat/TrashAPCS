@@ -4,5 +4,6 @@ public class Tester
     {
         Trash game = new Trash();
         game.trashLong(10,10);
+        Trash.inputter.close();
     }
 }

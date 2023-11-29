@@ -9,6 +9,7 @@ public class Trash //so can be combined with other game
     Grid player2;
     int gameCount = 1; //human counting
     int winner; 
+    public static Scanner inputter = new Scanner (System.in);
 
     public void trashShort ()//create short game
     {   
@@ -68,7 +69,6 @@ public class Trash //so can be combined with other game
 
     public void turn(Grid player) //create to act based on what turn
     {
-        Scanner input = new Scanner(System.in);
         boolean allowGrid = false;
         boolean allowTrash = false;
         boolean allowDraw = false;
@@ -109,7 +109,7 @@ public class Trash //so can be combined with other game
         {
             System.out.print("Please enter a number for an option\n");
             System.out.print("waiting\n");
-                temp = input.nextLine();
+                temp = inputter.nextLine();
                 System.out.print("finished" + ".");
             try
             {
@@ -121,9 +121,7 @@ public class Trash //so can be combined with other game
         }
         while(!(ans == 3 && allowDraw) && !(ans == 2 && allowTrash) && !(ans == 1 && allowGrid));
 
-        String buffClear = input.next();
-        input.close();
-        
+        String buffClear = inputter.next();
 
         if (ans == 2)
         {
